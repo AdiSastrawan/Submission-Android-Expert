@@ -1,11 +1,10 @@
-import org.gradle.internal.impldep.bsh.commands.dir
+
 
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
-    alias(libs.plugins.dagger.hilt)
 }
 apply( "../shared_dependencies.gradle")
 android {
@@ -50,7 +49,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     ksp(libs.androidx.room.compiler)
-
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.okhttp)

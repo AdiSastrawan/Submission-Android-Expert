@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.dynamic.feature)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp")
-    alias(libs.plugins.dagger.hilt)
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
 }
 apply("../shared_dependencies.gradle")
 android {
@@ -37,12 +38,4 @@ dependencies {
     implementation (libs.kotlin.stdlib)
     implementation(project(":app"))
     implementation(project(":core"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

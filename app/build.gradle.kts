@@ -4,7 +4,6 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
-    alias(libs.plugins.dagger.hilt)
 }
 apply("../shared_dependencies.gradle")
 android {

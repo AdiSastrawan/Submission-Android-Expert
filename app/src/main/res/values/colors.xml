@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="icon">#FF000000</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#4b68c1</color>
+    <color name="secondary">#92a7e6</color>
+    <color name="surface">#F1F2F9</color>
+    <color name="onPrimary">#F9F9FB</color>
+    <color name="background">#FAFAFC</color>
+    <color name="primaryDark">#3D5AB3</color>
+    <color name="secondaryDark">#192d6c</color>
+    <color name="surfaceDark">#07090f</color>
+    <color name="backgroundDark">#040406</color>
 </resources>

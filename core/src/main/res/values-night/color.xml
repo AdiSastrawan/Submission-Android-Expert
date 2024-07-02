@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="card">#07090f</color>
+    <color name="cardText">#F9F9FB</color>
+</resources>

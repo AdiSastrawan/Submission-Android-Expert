@@ -1,5 +1,7 @@
 package com.adisastrawan.androidexpertproject.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,20 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.adisastrawan.androidexpertproject.R
 import com.adisastrawan.androidexpertproject.databinding.FragmentDetailBinding
 import com.adisastrawan.core.domain.model.Favorite
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-@AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DetailViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModel()
     private val args: DetailFragmentArgs by navArgs()
     private var isFavorite = false
     override fun onCreateView(
@@ -36,10 +37,25 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val news = args.news
         binding.tvToolbarTitle.text = news.title
+        binding.tvToolbarSubtitle.text = news.url
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.menu_open_in_browser -> {
+                    val uri = Uri.parse(news.url)
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    startActivity(intent)
+                    true
+                }
 
+                else -> {
+                    false
+                }
+            }
+        }
         binding.newsWebview.apply {
             webViewClient = WebViewClient()
             val url = news.url
+            Log.d("DetailFragment", "onViewCreated: $url")
             if (url != null) {
                 loadUrl(url)
             }

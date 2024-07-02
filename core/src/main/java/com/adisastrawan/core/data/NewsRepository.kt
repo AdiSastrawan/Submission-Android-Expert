@@ -1,5 +1,6 @@
 package com.adisastrawan.core.data
 
+import android.util.Log
 import com.adisastrawan.core.data.source.NetworkBoundResource
 import com.adisastrawan.core.data.source.local.LocalDataSource
 import com.adisastrawan.core.data.source.remote.RemoteDataSource
@@ -13,33 +14,36 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class NewsRepository @Inject constructor(
+class NewsRepository (
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : INewsRepository {
-    override fun getAllNews(): Flow<Resource<List<News>>> {
+    private var query :String? = null
+    override fun getAllNews(q: String?): Flow<Resource<List<News>>> {
+        Log.d("NewsRepository", "getAllNews: $q")
         return object : NetworkBoundResource<List<News>, NewsResponse>() {
             override suspend fun saveCallResult(data: NewsResponse) {
                 val newsList = DataMapper.mapResponseToEntities(data.articles)
+                localDataSource.deleteAllNews()
                 localDataSource.insertNews(newsList)
             }
 
             override suspend fun createCall(): Flow<ApiResponse<NewsResponse>> {
-                return remoteDataSource.getAllNews()
+                return remoteDataSource.getAllNews(q)
             }
 
             override fun loadFromDB(): Flow<List<News>> {
+                Log.d("NewsRepository", "loadFromDB: $q")
                 return localDataSource.getAllNews().map {
                     DataMapper.mapEntitiesToDomain(it)
                 }
             }
 
             override fun shouldFetch(dbSource: List<News>): Boolean {
-                return dbSource.isEmpty()
+                val isQuery = query != q
+                query = q
+                return dbSource.isEmpty() || isQuery
             }
         }.asFlow()
     }

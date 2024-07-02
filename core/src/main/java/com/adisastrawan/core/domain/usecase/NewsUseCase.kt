@@ -5,5 +5,5 @@ import com.adisastrawan.core.domain.model.News
 import kotlinx.coroutines.flow.Flow
 
 interface NewsUseCase {
-    fun getAllNews(): Flow<Resource<List<News>>>
+    fun getAllNews(query:String? =null): Flow<Resource<List<News>>>
 }

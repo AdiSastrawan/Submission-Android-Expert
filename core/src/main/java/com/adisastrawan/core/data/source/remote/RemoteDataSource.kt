@@ -7,15 +7,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
-    fun getAllNews(): Flow<ApiResponse<NewsResponse>> {
+class RemoteDataSource (private val apiService: ApiService) {
+    fun getAllNews(query:String?=null): Flow<ApiResponse<NewsResponse>> {
         return flow {
             try {
-                val response = apiService.getNews(query = "bitcoin")
+                val response = apiService.getNews(query = query?: "bitcoin")
                 val dataArray = response.articles
                 if (dataArray!!.isNotEmpty()) {
                     emit(ApiResponse.Success(response))

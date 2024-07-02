@@ -12,9 +12,4 @@ interface ApiService {
         @Query("apiKey") apiKey: String = BuildConfig.API_KEY
     ): NewsResponse
 
-    @GET("top-headlines")
-    fun getTopHeadlineNews(
-        @Query("q") query: String,
-        @Query("apiKey") apiKey: String = BuildConfig.API_KEY
-    ): NewsResponse
 }

@@ -11,9 +11,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:menu="@menu/menu_option"
+        android:background="@color/secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.search.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
@@ -22,17 +24,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_news"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_news"
+        app:layout_constraintEnd_toEndOf="@id/rv_news"
+        app:layout_constraintStart_toStartOf="@+id/rv_news"
+        app:layout_constraintTop_toTopOf="@+id/rv_news"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>
