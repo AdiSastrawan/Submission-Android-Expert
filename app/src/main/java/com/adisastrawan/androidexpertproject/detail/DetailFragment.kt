@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.adisastrawan.androidexpertproject.R
 import com.adisastrawan.androidexpertproject.databinding.FragmentDetailBinding
 import com.adisastrawan.core.domain.model.Favorite
+import com.adisastrawan.core.domain.model.News
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,7 +23,6 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailViewModel by viewModel()
-    private val args: DetailFragmentArgs by navArgs()
     private var isFavorite = false
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,13 +35,13 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val news = args.news
-        binding.tvToolbarTitle.text = news.title
-        binding.tvToolbarSubtitle.text = news.url
+        val news : News? = arguments?.getParcelable("news")
+        binding.tvToolbarTitle.text = news?.title
+        binding.tvToolbarSubtitle.text = news?.url
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.menu_open_in_browser -> {
-                    val uri = Uri.parse(news.url)
+                    val uri = Uri.parse(news?.url)
                     val intent = Intent(Intent.ACTION_VIEW, uri)
                     startActivity(intent)
                     true
@@ -54,14 +54,14 @@ class DetailFragment : Fragment() {
         }
         binding.newsWebview.apply {
             webViewClient = WebViewClient()
-            val url = news.url
+            val url = news?.url
             Log.d("DetailFragment", "onViewCreated: $url")
             if (url != null) {
                 loadUrl(url)
             }
             settings.javaScriptEnabled = true
         }
-        viewModel.isFavorite(news.newsId).observe(viewLifecycleOwner){
+        viewModel.isFavorite(news!!.newsId).observe(viewLifecycleOwner){
                 Log.d("DetailFragment", "onViewCreated: $it")
             if (it){
                 binding.fabFavorite.setImageResource(R.drawable.baseline_favorite_24)
@@ -79,7 +79,7 @@ class DetailFragment : Fragment() {
             }else{
                 binding.fabFavorite.setImageResource(R.drawable.baseline_favorite_border_24)
             }
-            val favorite = Favorite(id = news.newsId,title= news.title!!,url=news.url!!, description = news.description!!, image = news.image!!)
+            val favorite = Favorite(id = news!!.newsId,title= news.title!!,url=news.url!!, description = news.description!!, image = news.image!!)
             lifecycleScope.launch {
                 viewModel.setFavorite(favorite)
             }

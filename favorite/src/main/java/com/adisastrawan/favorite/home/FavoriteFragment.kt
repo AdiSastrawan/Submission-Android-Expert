@@ -13,6 +13,7 @@ import com.adisastrawan.core.data.Resource
 import com.adisastrawan.core.domain.model.News
 import com.adisastrawan.core.ui.NewsListAdapter
 import com.adisastrawan.core.utils.OnAdapterItemClickListener
+import com.adisastrawan.favorite.R
 import com.adisastrawan.favorite.databinding.FragmentFavoriteBinding
 import com.adisastrawan.favorite.di.favoriteModule
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -77,8 +78,9 @@ class FavoriteFragment : Fragment(),  OnAdapterItemClickListener {
     }
 
     override fun onHistoryItemClick(news: News) {
-        val action = FavoriteFragmentDirections.actionFavoriteFragment2ToDetailFragment2(news)
-        view?.findNavController()?.navigate(action)
+        val bundle = Bundle()
+        bundle.putParcelable("news",news)
+        view?.findNavController()?.navigate(R.id.action_favoriteFragment2_to_detailFragment2,bundle)
     }
 
 }

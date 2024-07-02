@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -96,7 +97,8 @@ class HomeFragment : Fragment(), OnAdapterItemClickListener {
         }
     }
     override fun onHistoryItemClick(news: News) {
-        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(news)
-        view?.findNavController()?.navigate(action)
+        val bundle = Bundle()
+        bundle.putParcelable("news",news)
+        view?.findNavController()?.navigate(R.id.action_homeFragment_to_detailFragment,bundle)
     }
 }
