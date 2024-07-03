@@ -11,7 +11,6 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import com.adisastrawan.androidexpertproject.R
 import com.adisastrawan.androidexpertproject.databinding.FragmentDetailBinding
 import com.adisastrawan.core.domain.model.Favorite
@@ -59,7 +58,6 @@ class DetailFragment : Fragment() {
             if (url != null) {
                 loadUrl(url)
             }
-            settings.javaScriptEnabled = true
         }
         viewModel.isFavorite(news!!.newsId).observe(viewLifecycleOwner){
                 Log.d("DetailFragment", "onViewCreated: $it")
@@ -79,11 +77,16 @@ class DetailFragment : Fragment() {
             }else{
                 binding.fabFavorite.setImageResource(R.drawable.baseline_favorite_border_24)
             }
-            val favorite = Favorite(id = news!!.newsId,title= news.title!!,url=news.url!!, description = news.description!!, image = news.image!!)
+            val favorite = Favorite(id = news.newsId,title= news.title!!,url=news.url!!, description = news.description!!, image = news.image!!)
             lifecycleScope.launch {
                 viewModel.setFavorite(favorite)
             }
             isFavorite = !isFavorite
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

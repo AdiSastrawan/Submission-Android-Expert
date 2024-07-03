@@ -10,8 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
-
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adisastrawan.androidexpertproject.R
@@ -100,5 +98,10 @@ class HomeFragment : Fragment(), OnAdapterItemClickListener {
         val bundle = Bundle()
         bundle.putParcelable("news",news)
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_detailFragment,bundle)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

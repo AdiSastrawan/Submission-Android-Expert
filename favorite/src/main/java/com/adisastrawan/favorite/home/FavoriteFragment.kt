@@ -83,4 +83,8 @@ class FavoriteFragment : Fragment(),  OnAdapterItemClickListener {
         view?.findNavController()?.navigate(R.id.action_favoriteFragment2_to_detailFragment2,bundle)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
