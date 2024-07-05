@@ -19,7 +19,7 @@ import com.adisastrawan.favorite.di.favoriteModule
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.GlobalContext
 
-class FavoriteFragment : Fragment(),  OnAdapterItemClickListener {
+class FavoriteFragment : Fragment(), OnAdapterItemClickListener {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FavoriteViewModel by viewModel()
@@ -49,13 +49,13 @@ class FavoriteFragment : Fragment(),  OnAdapterItemClickListener {
 
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    val mapToNews = it.data?.map { favorite ->
+                    val mapToNews = it.data?.map { (_, title, image, url, description) ->
                         News(
-                            newsId = favorite.url,
-                            title = favorite.title,
-                            description = favorite.description,
-                            image = favorite.image,
-                            url = favorite.url
+                            newsId = url,
+                            title = title,
+                            description = description,
+                            image = image,
+                            url = url
                         )
                     }
                     binding.rvFavorite.adapter = adapter
@@ -79,8 +79,9 @@ class FavoriteFragment : Fragment(),  OnAdapterItemClickListener {
 
     override fun onHistoryItemClick(news: News) {
         val bundle = Bundle()
-        bundle.putParcelable("news",news)
-        view?.findNavController()?.navigate(R.id.action_favoriteFragment2_to_detailFragment2,bundle)
+        bundle.putParcelable("news", news)
+        view?.findNavController()
+            ?.navigate(R.id.action_favoriteFragment2_to_detailFragment2, bundle)
     }
 
     override fun onDestroyView() {

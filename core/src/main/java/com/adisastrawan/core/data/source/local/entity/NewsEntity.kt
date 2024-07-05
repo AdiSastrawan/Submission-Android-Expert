@@ -18,5 +18,5 @@ data class NewsEntity(
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "image")
-    val image : String?= null
+    val image: String? = null
 )

@@ -19,7 +19,7 @@ val useCaseModule = module {
     factory<DetailUseCase> {
         DetailInteractor(get())
     }
-    factory<FavoriteUseCase>{
+    factory<FavoriteUseCase> {
         FavoriteInteractor(get())
     }
 

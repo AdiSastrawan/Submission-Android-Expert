@@ -8,8 +8,8 @@ import com.adisastrawan.core.data.Resource
 import com.adisastrawan.core.domain.model.News
 import com.adisastrawan.core.domain.usecase.NewsUseCase
 
-class HomeViewModel (private val newsUseCase: NewsUseCase):ViewModel() {
-    fun getAllNews(query: String? =null): LiveData<Resource<List<News>>> {
-        Log.d("HomeViewModel", "getAllNews: $query")
-        return newsUseCase.getAllNews(query).asLiveData() }
+class HomeViewModel(private val newsUseCase: NewsUseCase) : ViewModel() {
+    fun getAllNews(query: String? = null): LiveData<Resource<List<News>>> {
+        return newsUseCase.getAllNews(query).asLiveData()
+    }
 }

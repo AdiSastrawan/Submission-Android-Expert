@@ -4,6 +4,6 @@ import com.adisastrawan.core.domain.model.News
 
 interface OnAdapterItemClickListener {
 
-    fun onHistoryItemClick(news:News)
+    fun onHistoryItemClick(news: News)
 
 }

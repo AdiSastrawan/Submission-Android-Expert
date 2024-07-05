@@ -6,6 +6,5 @@
         android:title="@string/favorite"
         android:icon="@drawable/baseline_favorite_24"
         android:iconTint="@color/icon"
-        app:showAsAction="ifRoom"
-        />
+        app:showAsAction="ifRoom" />
 </menu>

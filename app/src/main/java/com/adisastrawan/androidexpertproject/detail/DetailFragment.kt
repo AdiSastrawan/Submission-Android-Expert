@@ -28,17 +28,17 @@ class DetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailBinding.inflate(inflater,container,false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val news : News? = arguments?.getParcelable("news")
+        val news: News? = arguments?.getParcelable("news")
         binding.tvToolbarTitle.text = news?.title
         binding.tvToolbarSubtitle.text = news?.url
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.menu_open_in_browser -> {
                     val uri = Uri.parse(news?.url)
                     val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -54,30 +54,34 @@ class DetailFragment : Fragment() {
         binding.newsWebview.apply {
             webViewClient = WebViewClient()
             val url = news?.url
-            Log.d("DetailFragment", "onViewCreated: $url")
             if (url != null) {
                 loadUrl(url)
             }
         }
-        viewModel.isFavorite(news!!.newsId).observe(viewLifecycleOwner){
-                Log.d("DetailFragment", "onViewCreated: $it")
-            if (it){
+        viewModel.isFavorite((news ?: return).newsId).observe(viewLifecycleOwner) {
+            if (it) {
                 binding.fabFavorite.setImageResource(R.drawable.baseline_favorite_24)
-            }else{
+            } else {
                 binding.fabFavorite.setImageResource(R.drawable.baseline_favorite_border_24)
             }
             isFavorite = it
         }
-        binding.btnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
         }
-        binding.fabFavorite.setOnClickListener{
-            if (!isFavorite){
+        binding.fabFavorite.setOnClickListener {
+            if (!isFavorite) {
                 binding.fabFavorite.setImageResource(R.drawable.baseline_favorite_24)
-            }else{
+            } else {
                 binding.fabFavorite.setImageResource(R.drawable.baseline_favorite_border_24)
             }
-            val favorite = Favorite(id = news.newsId,title= news.title!!,url=news.url!!, description = news.description!!, image = news.image!!)
+            val favorite = Favorite(
+                id = news.newsId,
+                title = news.title ?: return@setOnClickListener,
+                url = news.url ?: return@setOnClickListener,
+                description = news.description ?: return@setOnClickListener,
+                image = news.image ?: return@setOnClickListener
+            )
             lifecycleScope.launch {
                 viewModel.setFavorite(favorite)
             }

@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface INewsRepository {
     fun getAllNews(query: String? = null): Flow<Resource<List<News>>>
     fun getAllFavorites(): Flow<Resource<List<Favorite>>>
-    fun isFavorite(id:String): Flow<Boolean>
+    fun isFavorite(id: String): Flow<Boolean>
     suspend fun setFavorite(favorite: Favorite)
 }

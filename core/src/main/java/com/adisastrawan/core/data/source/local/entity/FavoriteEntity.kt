@@ -15,5 +15,5 @@ data class FavoriteEntity(
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "image")
-    val image : String
+    val image: String
 )

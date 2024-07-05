@@ -5,7 +5,7 @@
     <fragment
         android:id="@+id/favoriteFragment2"
         android:name="com.adisastrawan.favorite.home.FavoriteFragment"
-        android:label="FavoriteFragment" >
+        android:label="FavoriteFragment">
         <action
             android:id="@+id/action_favoriteFragment2_to_detailFragment2"
             app:destination="@id/detailFragment2" />
@@ -13,8 +13,10 @@
     <fragment
         android:id="@+id/detailFragment2"
         android:name="com.adisastrawan.androidexpertproject.detail.DetailFragment"
-        android:label="DetailFragment" >
-        <argument android:name="news" app:argType="com.adisastrawan.core.domain.model.News"  />
+        android:label="DetailFragment">
+        <argument
+            android:name="news"
+            app:argType="com.adisastrawan.core.domain.model.News" />
         <action
             android:id="@+id/action_detailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />

@@ -1,4 +1,3 @@
-
 package com.adisastrawan.androidexpertproject.home
 
 import android.content.Intent
@@ -22,8 +21,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment(), OnAdapterItemClickListener {
-    private val viewModel : HomeViewModel by viewModel()
-    private var _binding : FragmentHomeBinding? = null
+    private val viewModel: HomeViewModel by viewModel()
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: NewsListAdapter
     private var query: String? = null
@@ -39,32 +38,32 @@ class HomeFragment : Fragment(), OnAdapterItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = NewsListAdapter(this)
-        with(binding){
-        searchBar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.menu_favorite -> {
-                    val uri = Uri.parse("androidexpertproject://favorite")
-                    startActivity(Intent(Intent.ACTION_VIEW, uri))
-                    false
-                }
+        with(binding) {
+            searchBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_favorite -> {
+                        val uri = Uri.parse("androidexpertproject://favorite")
+                        startActivity(Intent(Intent.ACTION_VIEW, uri))
+                        false
+                    }
 
-                else -> {
-                    false
+                    else -> {
+                        false
+                    }
                 }
             }
-        }
-        searchView.setupWithSearchBar(searchBar)
-        searchView
-            .editText
-            .setOnEditorActionListener { _, _, _ ->
-                searchBar.setText(searchView.text)
-                searchView.hide()
-                Log.d("HomeFragment", "onViewCreated: ${searchView.text}")
-                query = searchView.text.toString()
-                binding.progressBar.visibility = View.VISIBLE
-                getNews(query)
-                false
-            }
+            searchView.setupWithSearchBar(searchBar)
+            searchView
+                .editText
+                .setOnEditorActionListener { _, _, _ ->
+                    searchBar.setText(searchView.text)
+                    searchView.hide()
+
+                    query = searchView.text.toString()
+                    binding.progressBar.visibility = View.VISIBLE
+                    getNews(query)
+                    false
+                }
         }
         binding.rvNews.layoutManager = LinearLayoutManager(requireContext())
         binding.rvNews.adapter = adapter
@@ -72,20 +71,24 @@ class HomeFragment : Fragment(), OnAdapterItemClickListener {
         getNews(query)
 
     }
-    private fun showToast(message: String){
+
+    private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-    private fun getNews(query: String?=null){
-        viewModel.getAllNews(query).observe(viewLifecycleOwner){
-            when(it){
+
+    private fun getNews(query: String? = null) {
+        viewModel.getAllNews(query).observe(viewLifecycleOwner) {
+            when (it) {
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                     Log.d("HomeFragment", "onViewCreated: Loading")
                 }
+
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
                     adapter.submitList(it.data)
                 }
+
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
                     showToast(it.message.toString())
@@ -94,10 +97,11 @@ class HomeFragment : Fragment(), OnAdapterItemClickListener {
             }
         }
     }
+
     override fun onHistoryItemClick(news: News) {
         val bundle = Bundle()
-        bundle.putParcelable("news",news)
-        view?.findNavController()?.navigate(R.id.action_homeFragment_to_detailFragment,bundle)
+        bundle.putParcelable("news", news)
+        view?.findNavController()?.navigate(R.id.action_homeFragment_to_detailFragment, bundle)
     }
 
     override fun onDestroyView() {

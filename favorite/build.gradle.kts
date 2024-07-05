@@ -18,10 +18,6 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
@@ -38,7 +34,7 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation (libs.kotlin.stdlib)
+    implementation(libs.kotlin.stdlib)
     implementation(project(":app"))
     implementation(project(":core"))
 }

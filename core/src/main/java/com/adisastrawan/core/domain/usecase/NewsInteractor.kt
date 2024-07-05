@@ -5,8 +5,8 @@ import com.adisastrawan.core.domain.model.News
 import com.adisastrawan.core.domain.repository.INewsRepository
 import kotlinx.coroutines.flow.Flow
 
-class NewsInteractor (private val repository: INewsRepository): NewsUseCase {
+class NewsInteractor(private val repository: INewsRepository) : NewsUseCase {
     override fun getAllNews(query: String?): Flow<Resource<List<News>>> {
-        return repository.getAllNews( query)
+        return repository.getAllNews(query)
     }
 }

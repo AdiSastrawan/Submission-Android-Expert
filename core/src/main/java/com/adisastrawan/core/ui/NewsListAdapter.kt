@@ -11,9 +11,13 @@ import com.adisastrawan.core.domain.model.News
 import com.adisastrawan.core.utils.OnAdapterItemClickListener
 import com.bumptech.glide.Glide
 
-class NewsListAdapter(private val listener : OnAdapterItemClickListener) : ListAdapter<News, NewsListAdapter.ViewHolder>(DIFF_CALLBACK) {
+class NewsListAdapter(private val listener: OnAdapterItemClickListener) :
+    ListAdapter<News, NewsListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    class ViewHolder(private val binding: ItemNewsLayoutBinding,private val listener: OnAdapterItemClickListener) :
+    class ViewHolder(
+        private val binding: ItemNewsLayoutBinding,
+        private val listener: OnAdapterItemClickListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(news: News) {
             with(binding) {
@@ -22,7 +26,7 @@ class NewsListAdapter(private val listener : OnAdapterItemClickListener) : ListA
                 Glide.with(itemView.context).load(news.image)
                     .placeholder(R.drawable.baseline_photo_24).into(ivNews)
                 itemView.setOnClickListener {
-                   listener.onHistoryItemClick(news)
+                    listener.onHistoryItemClick(news)
                 }
             }
         }
@@ -31,7 +35,7 @@ class NewsListAdapter(private val listener : OnAdapterItemClickListener) : ListA
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemNewsLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding,listener)
+        return ViewHolder(binding, listener)
     }
 
 

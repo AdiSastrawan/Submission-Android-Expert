@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FavoriteActivity">
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_activity_favorite"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/favorite_nav"
-        />
+        app:navGraph="@navigation/favorite_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>

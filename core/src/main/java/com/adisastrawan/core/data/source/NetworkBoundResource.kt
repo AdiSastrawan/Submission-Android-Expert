@@ -11,21 +11,22 @@ import kotlinx.coroutines.flow.map
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
 
-    private val result : Flow<Resource<ResultType>> = flow {
+    private val result: Flow<Resource<ResultType>> = flow {
         emit(Resource.Loading())
         val dbSource = loadFromDB().first()
         if (shouldFetch(dbSource)) {
             emit(Resource.Loading())
-            when(val apiResponse = createCall().first()){
+            when (val apiResponse = createCall().first()) {
                 is ApiResponse.Success -> {
                     saveCallResult(apiResponse.data)
                     emitAll(loadFromDB().map { Resource.Success(it) })
                 }
+
                 is ApiResponse.Empty -> {
                     emitAll(loadFromDB().map { Resource.Success(it) })
                 }
-                is ApiResponse.Error ->{
-                    onFetchFailed()
+
+                is ApiResponse.Error -> {
                     emit(Resource.Error(apiResponse.errorMessage))
                 }
             }
@@ -34,7 +35,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
         }
     }
 
-    protected open fun onFetchFailed(){}
+
     abstract suspend fun saveCallResult(data: RequestType)
 
     abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
