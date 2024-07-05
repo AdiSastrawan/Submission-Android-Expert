@@ -1,4 +1,6 @@
-
+-keep class net.sqlcipher.** { *; }
+-keep class org.spatialite.** { *; }
+-keep class net.sqlcipher.database.** { *; }
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.
@@ -37,3 +39,23 @@ public *;
 -keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
 *** rewind();
    }
+# Keep the Resource sealed class and its inner classes
+-keep public class com.adisastrawan.core.data.Resource
+-keep public class com.adisastrawan.core.data.Resource$Success
+-keep public class com.adisastrawan.core.data.Resource$Error
+-keep public class com.adisastrawan.core.data.Resource$Loading
+
+# Keep members of the Resource class and its nested classes
+-keepclassmembers class com.adisastrawan.core.data.Resource {
+    *;
+}
+-keepclassmembers class com.adisastrawan.core.data.Resource$Success {
+    *;
+}
+-keepclassmembers class com.adisastrawan.core.data.Resource$Error {
+    *;
+}
+-keepclassmembers class com.adisastrawan.core.data.Resource$Loading {
+    *;
+}
+
