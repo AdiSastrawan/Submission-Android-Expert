@@ -59,3 +59,85 @@ public *;
     *;
 }
 
+# Keep the Favorite class and its members
+-keep class com.adisastrawan.core.domain.model.Favorite {
+    *;
+}
+
+# Keep the News class and its members
+-keep class com.adisastrawan.core.domain.model.News {
+    *;
+}
+
+# Keep the INewsRepository interface and its members
+-keep interface com.adisastrawan.core.domain.repository.INewsRepository {
+    *;
+}
+
+# Keep the DetailInteractor class and its members
+-keep class com.adisastrawan.core.domain.usecase.DetailInteractor {
+    *;
+}
+
+# Keep the DetailUseCase class and its members
+-keep class com.adisastrawan.core.domain.usecase.DetailUseCase {
+    *;
+}
+
+# Keep the FavoriteInteractor class and its members
+-keep class com.adisastrawan.core.domain.usecase.FavoriteInteractor {
+    *;
+}
+
+# Keep the FavoriteUseCase class and its members
+-keep class com.adisastrawan.core.domain.usecase.FavoriteUseCase {
+    *;
+}
+
+# Keep the NewsInteractor class and its members
+-keep class com.adisastrawan.core.domain.usecase.NewsInteractor {
+    *;
+}
+
+# Keep the NewsUseCase class and its members
+-keep class com.adisastrawan.core.domain.usecase.NewsUseCase {
+    *;
+}
+
+# Keep the NewsListAdapter class and its members
+-keep class com.adisastrawan.core.ui.NewsListAdapter {
+    *;
+}
+
+##---------------Begin: proguard configuration for Glide ----------
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+    <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+    *** rewind();
+}
+
+-keep class com.adisastrawan.core.data.source.remote.response.NewsResponse {
+    public <init>();
+    *;
+}
+
+# Keep the ArticlesItem
+-keep class com.adisastrawan.core.data.source.remote.response.ArticlesItem {
+    public <init>();
+    *;
+}
+#Keep the Source
+-keep class com.adisastrawan.core.data.source.remote.response.Source{
+    *;
+}
+
+ # With R8 full mode generic signatures are stripped for classes that are not
+ # kept. Suspend functions are wrapped in continuations where the type argument
+ # is used.
+ -keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation

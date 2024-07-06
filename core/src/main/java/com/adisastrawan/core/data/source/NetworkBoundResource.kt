@@ -1,5 +1,6 @@
 package com.adisastrawan.core.data.source
 
+import android.util.Log
 import com.adisastrawan.core.data.Resource
 import com.adisastrawan.core.data.source.remote.network.ApiResponse
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +16,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
         emit(Resource.Loading())
         val dbSource = loadFromDB().first()
         if (shouldFetch(dbSource)) {
+            Log.d(NetworkBoundResource::class.java.simpleName, "Fetch from network")
             emit(Resource.Loading())
             when (val apiResponse = createCall().first()) {
                 is ApiResponse.Success -> {
@@ -27,6 +29,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 }
 
                 is ApiResponse.Error -> {
+                    Log.d("NetworkBoundResource", apiResponse.errorMessage)
                     emit(Resource.Error(apiResponse.errorMessage))
                 }
             }
