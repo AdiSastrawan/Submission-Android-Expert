@@ -24,7 +24,7 @@ class HomeFragment : Fragment(), OnAdapterItemClickListener {
     private val viewModel: HomeViewModel by viewModel()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: NewsListAdapter
+    private var adapter: NewsListAdapter? = null
     private var query: String? = null
 
     override fun onCreateView(
@@ -86,7 +86,7 @@ class HomeFragment : Fragment(), OnAdapterItemClickListener {
 
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    adapter.submitList(it.data)
+                    adapter?.submitList(it.data)
                 }
 
                 is Resource.Error -> {
@@ -107,5 +107,6 @@ class HomeFragment : Fragment(), OnAdapterItemClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        adapter = null
     }
 }
